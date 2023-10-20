@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 11:05:54 by macarval          #+#    #+#             */
-/*   Updated: 2023/10/20 11:05:55 by macarval         ###   ########.fr       */
+/*   Updated: 2023/10/20 16:22:59 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	tokenize_string(char *input_string, t_cmd_table *cmd_table)
 		{
 			temp = assign_token(&input_string[i], cmd_table);
 			if (temp == -1)
-				return (printf("bash: syntax error near unexpected token `\\n'\n"));
+				return (print_error());
 			i += temp;
 		}
 		else
@@ -40,6 +40,14 @@ int	tokenize_string(char *input_string, t_cmd_table *cmd_table)
 		return (1);
 	create_io_file_tokens(cmd_table->token_head);
 	return (0);
+}
+
+int	print_error(void)
+{
+	int	i;
+
+	i = printf("bash: syntax error near unexpected token `\\n'\n");
+	return (i);
 }
 
 int	assign_token(char *str, t_cmd_table *cmd_table)

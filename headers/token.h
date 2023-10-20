@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 18:15:05 by macarval          #+#    #+#             */
-/*   Updated: 2023/10/16 18:15:06 by macarval         ###   ########.fr       */
+/*   Updated: 2023/10/20 16:22:39 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_token {
 	t_token		*next;
 }	t_token;
 
+int		print_error(void);
 int		tokenize_string(char *input_string, t_cmd_table *cmd_table);
 int		assign_token(char *str, t_cmd_table *cmd_table);
 void	create_token(t_type type, char *text, t_cmd_table *cmd_table);

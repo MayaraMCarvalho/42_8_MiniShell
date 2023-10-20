@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 18:02:28 by macarval          #+#    #+#             */
-/*   Updated: 2023/10/16 12:01:27 by macarval         ###   ########.fr       */
+/*   Updated: 2023/10/20 21:18:55 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,12 @@
 int	main(int argc, char **argv, char **envp)
 {
 	t_token		*token_head;
-	t_cmd_table *cmd_table;
+	t_cmd_table	*cmd_table;
 	t_shell		shell;
 	char		*text;
 
 	token_head = NULL;
 	cmd_table = init_cmd_table(&token_head, envp);
-	shell.exit_code = 0;
-	text = NULL;
 	while (true && argc && argv)
 	{
 		text = make_text();
@@ -36,15 +34,18 @@ int	main(int argc, char **argv, char **envp)
 		{
 			add_history(shell.line);
 			if (!tokenize_string(shell.line, cmd_table))
-			{
-				fill_cmd_table(cmd_table, &token_head);
-				execute(cmd_table);
-				free_func_cmd_table(cmd_table);
-			}
+				exec_minishell(cmd_table, token_head);
 			free_func_token(&token_head);
 		}
 		else
 			free(shell.line);
 	}
 	return (0);
+}
+
+void	exec_minishell(t_cmd_table *cmd_table, t_token *token_head)
+{
+	fill_cmd_table(cmd_table, &token_head);
+	execute(cmd_table);
+	free_func_cmd_table(cmd_table);
 }

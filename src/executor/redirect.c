@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 11:05:16 by macarval          #+#    #+#             */
-/*   Updated: 2023/10/20 11:05:17 by macarval         ###   ########.fr       */
+/*   Updated: 2023/10/20 16:29:42 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,26 +64,26 @@ int	redirect_input(t_cmd_table *cmd_tab, t_redirect *red, int red_count)
 
 int	redirect_output(t_cmd_table *cmd_tab, t_redirect *red, int red_count)
 {
-	int	out_fd;
+	int	fd;
 	int	i;
 
-	out_fd = 0;
+	fd = 0;
 	i = -1;
 	if (!count_red(red, red_count, OUTFILE, APPEND))
 		return (0);
 	while (++i < red_count)
 	{
 		if (red[i].type == OUTFILE)
-			out_fd = open(red[i].file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			fd = open(red[i].file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (red[i].type == APPEND)
-			out_fd = open(red[i].file_name, O_WRONLY | O_CREAT | O_APPEND, 0644);
-		if (out_fd == -1)
+			fd = open(red[i].file_name, O_WRONLY | O_CREAT | O_APPEND, 0644);
+		if (fd == -1)
 			redirect_error(cmd_tab, red[i].file_name);
-		if (out_fd)
+		if (fd)
 		{
-			dup2(out_fd, STDOUT_FILENO);
-			close(out_fd);
-			out_fd = 0;
+			dup2(fd, STDOUT_FILENO);
+			close(fd);
+			fd = 0;
 		}
 	}
 	return (1);

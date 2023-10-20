@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 11:05:04 by macarval          #+#    #+#             */
-/*   Updated: 2023/10/20 11:05:05 by macarval         ###   ########.fr       */
+/*   Updated: 2023/10/20 16:25:04 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,7 @@ static void	execute_with_child(t_cmd_table *cmd_table, int cmd_i)
 	sign_child();
 	redirect_child(cmd_table, cmd_i);
 	if (is_builtin(cmd_table->cmd_arr[cmd_i].single_cmd[0]))
-	{
-		execute_builtin(cmd_table, cmd_i, 0);
-	}
+		execute_builtin(cmd_table, cmd_i);
 	ft_execve(cmd, &cmd_table->env);
 }
 
