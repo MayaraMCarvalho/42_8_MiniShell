@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 11:05:04 by macarval          #+#    #+#             */
-/*   Updated: 2023/10/20 16:25:04 by macarval         ###   ########.fr       */
+/*   Updated: 2023/10/26 18:41:49 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "../../headers/redirect.h"
 #include "../../headers/signals.h"
 #include "../../headers/pipes.h"
+#include "../../headers/minishell.h"
 
 #include <sys/wait.h>
 
@@ -28,14 +29,14 @@ static void	execute_with_child(t_cmd_table *cmd_table, int cmd_i)
 	redirect_child(cmd_table, cmd_i);
 	if (is_builtin(cmd_table->cmd_arr[cmd_i].single_cmd[0]))
 		execute_builtin(cmd_table, cmd_i);
-	ft_execve(cmd, &cmd_table->env);
+	ft_execve(cmd, &cmd_table->env, cmd_table);
 }
 
 static void	execute_single_child(t_cmd_table *cmd_table)
 {
 	sign_child();
 	redirect_single_child(cmd_table);
-	ft_execve(cmd_table->cmd_arr[0].single_cmd, &cmd_table->env);
+	ft_execve(cmd_table->cmd_arr[0].single_cmd, &cmd_table->env, cmd_table);
 }
 
 void	execute_multiple_cmd(t_cmd_table *cmd_table)
