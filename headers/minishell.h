@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:52:02 by macarval          #+#    #+#             */
-/*   Updated: 2023/10/20 21:16:48 by macarval         ###   ########.fr       */
+/*   Updated: 2023/10/26 11:37:40 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ t_lst		*insert_front(t_lst *new, char *var, char *msg, int type);
 void		free_env(t_env *list);
 void		free_list(t_lst *list);
 void		free_shell(t_shell shell);
+void		free_table(t_cmd_table *cmd_table);
 int			c_exit(t_shell *shell, t_cmd_table *cmd_table);
 
 // export.c

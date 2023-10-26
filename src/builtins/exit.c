@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:13:37 by macarval          #+#    #+#             */
-/*   Updated: 2023/10/16 12:26:03 by macarval         ###   ########.fr       */
+/*   Updated: 2023/10/26 11:37:48 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,19 @@ int	c_exit(t_shell *shell, t_cmd_table *cmd_table)
 		control = 1;
 		free_list(shell->env);
 		free_shell(*shell);
-		free_env(cmd_table->env);
-		free_func_cmd_table(cmd_table);
+		free_table(cmd_table);
 		rl_clear_history();
 	}
 	return (control);
+}
+
+void	free_table(t_cmd_table *cmd_table)
+{
+	free(cmd_table->home);
+	free_env(cmd_table->env);
+	free_func_token(cmd_table->token_head);
+	free_func_cmd_table(cmd_table);
+	free(cmd_table);
 }
 
 void	free_list(t_lst *list)

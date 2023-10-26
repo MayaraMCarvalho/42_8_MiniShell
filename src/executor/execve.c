@@ -6,13 +6,14 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 11:05:07 by macarval          #+#    #+#             */
-/*   Updated: 2023/10/20 11:05:08 by macarval         ###   ########.fr       */
+/*   Updated: 2023/10/26 12:11:55 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/execve.h"
 #include "../../headers/env_utils.h"
 #include "../../headers/error.h"
+#include "../../headers/minishell.h"
 
 #include <errno.h>
 #include <stdio.h>
@@ -83,6 +84,8 @@ void	ft_execve(char **cmd, t_env **env_head)
 	cmdpath = get_right_path(splitted_paths, cmd);
 	execve(cmdpath, cmd, envp);
 	free(cmdpath);
+	free_array(&splitted_paths);
 	free_envp(envp);
+	free_env(*env_head);
 	execve_error(cmd[0]);
 }

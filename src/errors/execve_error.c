@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 11:04:42 by macarval          #+#    #+#             */
-/*   Updated: 2023/10/20 11:04:43 by macarval         ###   ########.fr       */
+/*   Updated: 2023/10/26 12:13:45 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	execve_error(char *cmd)
 			ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
 		else
 			ft_putstr_fd(": command not found\n", STDERR_FILENO);
+		free(cmd);
 		exit(127);
 	}
 	if (errno == EACCES)
@@ -30,8 +31,10 @@ void	execve_error(char *cmd)
 		ft_putstr_fd("bash: ", STDERR_FILENO);
 		ft_putstr_fd(cmd, STDERR_FILENO);
 		ft_putstr_fd(": Permission denied \n", STDERR_FILENO);
+		free(cmd);
 		exit(126);
 	}
+	free(cmd);
 	exit(1);
 }
 
