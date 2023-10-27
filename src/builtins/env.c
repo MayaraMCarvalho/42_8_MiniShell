@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 16:36:46 by macarval          #+#    #+#             */
-/*   Updated: 2023/10/27 18:31:03 by macarval         ###   ########.fr       */
+/*   Updated: 2023/10/27 19:22:21 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,9 @@ t_lst	*make_list(t_env *envp)
 	while (envp)
 	{
 		var = ft_strdup(envp->variable);
+		value = NULL;
 		if (envp->value)
 			value = ft_strdup(envp->value);
-		else
-			value = NULL;
 		if (envp->type)
 			type = envp->type;
 		else
