@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 18:29:27 by macarval          #+#    #+#             */
-/*   Updated: 2023/10/27 18:07:27 by macarval         ###   ########.fr       */
+/*   Updated: 2023/10/27 19:18:07 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,19 @@ char	***tokenization(t_shell *shell)
 	return (lex);
 }
 
-char	*id_token(char *token, int *has_content)
+char	*id_token(char *token, int *has_content, int *has_echo)
 {
 	if (token)
 	{
 		if (verify_list(token,
 				ft_split("echo cd pwd export unset env exit history", ' ')))
+		{
+			if (!strcmp_mod(token, "echo"))
+				*has_echo = 1;
 			return (BUILTIN);
+		}
 		else if (token[0] == '-' && !verify_flags(token, "n")
-		&& *has_content == 0)
+			&& *has_echo && !*has_content)
 			return (FLAG);
 		else
 		{
@@ -54,14 +58,16 @@ void	copy_token(char **token, t_lex **lex)
 	int		i;
 	t_lex	*node;
 	int		has_content;
+	int		has_echo;
 
 	i = -1;
 	has_content = 0;
+	has_echo = 0;
 	while (token[++i])
 	{
 		node = NULL;
 		node = insert_front_lex(node, token[i], id_token(token[i],
-				&has_content));
+					&has_content, &has_echo));
 		insert_last_lex(lex, node);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 20:02:42 by macarval          #+#    #+#             */
-/*   Updated: 2023/10/27 15:51:38 by macarval         ###   ########.fr       */
+/*   Updated: 2023/10/27 19:17:25 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	c_cd(t_shell *shell)
 {
 	char	**split;
+
 	if (!strcmp_mod(shell->command, "cd"))
 	{
 		update_(*shell);

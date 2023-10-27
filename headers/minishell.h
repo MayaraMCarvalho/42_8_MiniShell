@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:52:02 by macarval          #+#    #+#             */
-/*   Updated: 2023/10/27 18:18:37 by macarval         ###   ########.fr       */
+/*   Updated: 2023/10/27 18:42:16 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ size_t		final(char *s1, char *set);
 char		*strtrim_mod(char *s1, char *set);
 
 // token.c
-char		*id_token(char *token, int *has_content);
+char		*id_token(char *token, int *has_content, int *has_echo);
 int			lexer_size(t_lex *lexer);
 char		***tokenization(t_shell *shell);
 void		copy_token(char **token, t_lex **lex);

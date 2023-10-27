@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 11:29:48 by macarval          #+#    #+#             */
-/*   Updated: 2023/10/27 11:27:53 by macarval         ###   ########.fr       */
+/*   Updated: 2023/10/27 19:16:42 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,9 @@ t_env	*tranfer_env(t_lst *env)
 	while (env)
 	{
 		var = ft_strdup(env->var);
+		value = NULL;
 		if (env->msg)
 			value = ft_strdup(env->msg);
-		else
-			value = NULL;
 		if (env->type)
 			type = env->type;
 		else

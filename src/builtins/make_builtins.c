@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 14:33:18 by macarval          #+#    #+#             */
-/*   Updated: 2023/10/27 14:21:41 by macarval         ###   ########.fr       */
+/*   Updated: 2023/10/27 19:18:39 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	make_builtins(t_shell *shell, t_cmd_table *cmd_table)
 	else
 	{
 		while (shell->lex[i] && !strcmp_mod(shell->lex[i][1], CONTENT))
-		join_content(shell, i++);
+			join_content(shell, i++);
 	}
 	verify_builtins(shell, cmd_table);
 	free_join(shell);
