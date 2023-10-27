@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 16:36:32 by macarval          #+#    #+#             */
-/*   Updated: 2023/10/16 12:39:31 by macarval         ###   ########.fr       */
+/*   Updated: 2023/10/27 11:35:44 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	exe_unset(t_shell *shell)
 		if (is_args(shell))
 		{
 			node = find_arg(*shell, shell->content);
-			if (is_flag_null(shell) && node != NULL && node->type != ENVP)
+			if (is_flag_null(shell) && node != NULL)
 			{
 				if (shell->env == node)
 					shell->env = node->next;

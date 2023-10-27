@@ -6,19 +6,27 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 16:56:13 by macarval          #+#    #+#             */
-/*   Updated: 2023/10/16 11:52:32 by macarval         ###   ########.fr       */
+/*   Updated: 2023/10/27 18:07:34 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
-t_lex	*lexical(char **token)
+int	lexer_size(t_lex *lexer)
 {
-	t_lex	*lex;
+	t_lex	*temp;
+	t_lex	*next;
+	int		i;
 
-	lex = NULL;
-	copy_token(token, &lex);
-	return (lex);
+	temp = lexer;
+	i = 0;
+	while (temp != NULL)
+	{
+		i++;
+		next = temp->next;
+		temp = next;
+	}
+	return (i);
 }
 
 char	***make_lexer(t_lex *list)

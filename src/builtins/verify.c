@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 11:35:31 by macarval          #+#    #+#             */
-/*   Updated: 2023/10/16 11:52:32 by macarval         ###   ########.fr       */
+/*   Updated: 2023/10/27 18:17:15 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,14 @@ int	verify_exceptions(char *token)
 		|| !strcmp_mod(token, ".") || !strcmp_mod(token, "..")
 		|| !strcmp_mod(token, "./") || !strcmp_mod(token, "../")
 		|| ft_strnstr(token, "../", 3))
+		return (1);
+	return (0);
+}
+
+int	check_void(char *str, int i)
+{
+	if ((str[i] == '\'' && str[i + 1] && str[i + 1] == '\'')
+		|| (str[i] == '"' && str[i + 1] && str[i + 1] == '"'))
 		return (1);
 	return (0);
 }

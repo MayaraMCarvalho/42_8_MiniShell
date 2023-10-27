@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 18:02:28 by macarval          #+#    #+#             */
-/*   Updated: 2023/10/27 10:19:26 by macarval         ###   ########.fr       */
+/*   Updated: 2023/10/27 10:21:24 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int	main(int argc, char **argv, char **envp)
 		sign_init();
 		shell.line = get_line_text();
 		cmd_table->input_string = shell.line;
-
 		if (shell.line[0] != '\0')
 		{
 			add_history(shell.line);

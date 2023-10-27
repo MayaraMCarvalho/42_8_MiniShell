@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:24:33 by macarval          #+#    #+#             */
-/*   Updated: 2023/10/16 11:52:32 by macarval         ###   ########.fr       */
+/*   Updated: 2023/10/27 16:26:00 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,17 @@ int	isalnum_mod(char *c)
 			r = 1;
 	}
 	return (r);
+}
+
+int	isdigit_mod(char	*c)
+{
+	int	i;
+
+	i = -1;
+	while (c[++i])
+	{
+		if (!ft_isdigit(c[i]) && c[i] != '+' && c[i] != '-')
+			return (0);
+	}
+	return (1);
 }

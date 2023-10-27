@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 15:13:26 by macarval          #+#    #+#             */
-/*   Updated: 2023/10/16 11:52:32 by macarval         ###   ########.fr       */
+/*   Updated: 2023/10/27 17:54:25 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	is_command(t_shell *shell, t_cmd_table *cmd_table)
 	else if (c_env(shell))
 		return (0);
 	else if (c_exit(shell, cmd_table))
-		exit(0);
+		exit(shell->exit_code);
 	else if (c_history(shell))
 		return (0);
 	return (1);

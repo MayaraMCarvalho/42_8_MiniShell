@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 20:02:42 by macarval          #+#    #+#             */
-/*   Updated: 2023/10/16 11:52:32 by macarval         ###   ########.fr       */
+/*   Updated: 2023/10/27 15:51:38 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	c_cd(t_shell *shell)
 {
+	char	**split;
 	if (!strcmp_mod(shell->command, "cd"))
 	{
 		update_(*shell);
@@ -23,7 +24,15 @@ int	c_cd(t_shell *shell)
 			shell->content = ft_strdup(getenv("HOME"));
 		else if (!strcmp_mod(shell->flag, "-"))
 			get_oldpwd(shell);
-		exe_cd(*shell);
+		split = ft_split(shell->content, ' ');
+		if (split[1])
+		{
+			ft_putstr_fd("bash: cd: too many arguments\n", STDERR_FILENO);
+			shell->exit_code = 1;
+		}
+		else
+			exe_cd(shell);
+		free_array(&split);
 		return (1);
 	}
 	return (0);
@@ -41,12 +50,12 @@ void	get_oldpwd(t_shell *shell)
 	}
 	else
 	{
-		printf("bash: cd: OLDPWD not set\n");
+		ft_putstr_fd("bash: cd: OLDPWD not set\n", STDERR_FILENO);
 		shell->exit_code = 1;
 	}
 }
 
-void	exe_cd(t_shell shell)
+void	exe_cd(t_shell *shell)
 {
 	t_lst	*var;
 	char	*oldpwd;
@@ -54,21 +63,23 @@ void	exe_cd(t_shell shell)
 	int		control;
 
 	control = -1;
-	var = find_arg(shell, "PWD");
+	var = find_arg(*shell, "PWD");
 	oldpwd = var->msg;
-	if (shell.content)
+	if (shell->content)
 	{
-		control = chdir(shell.content);
+		control = chdir(shell->content);
 		if (control == -1)
 		{
-			printf("bash: cd: %s: No such file or directory\n", shell.content);
-			shell.exit_code = 1;
+			ft_putstr_fd("bash: cd: ", STDERR_FILENO);
+			ft_putstr_fd(shell->content, STDERR_FILENO);
+			ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
+			shell->exit_code = 1;
 		}
 	}
 	if (control == 0)
 	{
-		update_var(shell, "OLDPWD", oldpwd);
-		update_var(shell, "PWD", getcwd(buf, 256));
+		update_var(*shell, "OLDPWD", oldpwd);
+		update_var(*shell, "PWD", getcwd(buf, 256));
 	}
 }
 

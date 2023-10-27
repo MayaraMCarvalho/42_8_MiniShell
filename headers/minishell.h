@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:52:02 by macarval          #+#    #+#             */
-/*   Updated: 2023/10/27 10:19:52 by macarval         ###   ########.fr       */
+/*   Updated: 2023/10/27 18:18:37 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void		apart_args(t_shell *shell, char c, int (*function)(t_shell *));
 
 // cd.c
 int			c_cd(t_shell *shell);
-void		exe_cd(t_shell shell);
+void		exe_cd(t_shell *shell);
 void		get_oldpwd(t_shell *shell);
 void		update_var(t_shell shell, char *name, char *value);
 
@@ -92,9 +92,9 @@ void		insert_last(t_lst **lst, t_lst *new);
 t_lst		*insert_front(t_lst *new, char *var, char *msg, int type);
 
 // exit.c
-void		free_env(t_env *list);
 void		free_list(t_lst *list);
 void		free_shell(t_shell shell);
+void		get_exit_code(t_shell *shell);
 void		free_table(t_cmd_table *cmd_table);
 int			c_exit(t_shell *shell, t_cmd_table *cmd_table);
 
@@ -106,6 +106,7 @@ int			add_export(t_shell *shell);
 
 // free.c
 void		free_lex(t_lex *lex);
+void		free_env(t_env *list);
 void		free_join(t_shell *shell);
 void		free_array(char ***token);
 void		free_double(char ****array);
@@ -117,8 +118,7 @@ int			make_shell(t_shell *shell);
 void		inicialize(t_shell *shell);
 void		verify_builtins(t_shell *shell, t_cmd_table *cmd_table);
 
-// lexical.c
-t_lex		*lexical(char **token);
+// lexer.c
 char		***malloc_lexer(int size);
 char		***make_lexer(t_lex *list);
 void		insert_last_lex(t_lex **lst, t_lex *new);
@@ -136,28 +136,6 @@ t_lst		*get_min(t_lst *env);
 t_lst		*remove_min(t_lst *list, char *var);
 void		add_node(t_shell shell, t_lst *node, t_lst *new_node);
 
-// quotes_void.c
-int			quotes_void(char *str);
-int			check_void(char *str, int i);
-char		*remove_quotes_void(char *str);
-
-// quotes.c
-int			quotes_close(const char *str);
-int			verify_quotes(const char *str);
-void		clear_quotes(char **token, char *temp);
-
-// spaces.c
-int			verify_spaceless(char	*token);
-char		*put_spaces(char *token, char *spaces);
-char		**create_spaces(char *token, int control);
-
-// split_mod.c
-int			counter(const char *str, char c);
-char		**ft_split_mod(char const *s, char c);
-size_t		quantity_words(const char *str, char c);
-size_t		len_word(const char *str, char c, size_t len);
-char		*copy_word(const char *s, char c, size_t len);
-
 // strcmp.c
 int			strcmp_mod(const char *s1, const char *s2);
 int			strcmp_rev(const char *s1, const char *s2);
@@ -169,7 +147,7 @@ size_t		final(char *s1, char *set);
 char		*strtrim_mod(char *s1, char *set);
 
 // token.c
-char		*id_token(char *token);
+char		*id_token(char *token, int *has_content);
 int			lexer_size(t_lex *lexer);
 char		***tokenization(t_shell *shell);
 void		copy_token(char **token, t_lex **lex);
@@ -182,6 +160,7 @@ t_env		*insert_front_env(t_env *new, char *var, char *msg, int type);
 
 // unset.c
 int			c_unset(t_shell *shell);
+int			isdigit_mod(char	*c);
 int			exe_unset(t_shell *shell);
 void		verify_expansion(char **token);
 
@@ -196,6 +175,7 @@ char		*get_var(char *token, t_shell *shell);
 char		*apart_var(t_shell *shell, char *token);
 
 // verify.c
+int			check_void(char *str, int i);
 int			verify_commands(char *token);
 int			verify_exceptions(char *token);
 int			verify_list(char *token, char **list);

@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 20:01:25 by macarval          #+#    #+#             */
-/*   Updated: 2023/10/16 12:27:20 by macarval         ###   ########.fr       */
+/*   Updated: 2023/10/27 18:02:06 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,22 @@ void	free_join(t_shell *shell)
 	{
 		free(shell->content);
 		shell->content = NULL;
+	}
+}
+
+void	free_env(t_env *list)
+{
+	t_env	*temp;
+	t_env	*next;
+
+	temp = list;
+	while (temp != NULL)
+	{
+		free(temp->variable);
+		if (temp->value)
+			free(temp->value);
+		next = temp->next;
+		free(temp);
+		temp = next;
 	}
 }

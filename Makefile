@@ -6,10 +6,9 @@ SOURCES		:=	env_init.c env_utils.c execve_error.c export_error.c \
 				token_list.c token_utils.c token_string.c \
 				\
 				args.c cd.c commands.c echo.c env.c exit.c export.c free.c \
-				handling.c lexical.c make_builtins.c minishell.c node.c \
-				quotes_void.c quotes.c spaces.c split_mod.c strcmp.c \
-				strtrim_mod.c token.c transfer_env.c unset.c utils.c var.c \
-				verify.c
+				handling.c lexer.c make_builtins.c minishell.c node.c \
+				strcmp.c strtrim_mod.c token.c transfer_env.c unset.c utils.c \
+				var.c verify.c
 
 BUILD		:=	build
 VPATH		:=	src/ src/input src/tokenize src/parse src/builtins src/executor src/errors src/env src/expander src/signals

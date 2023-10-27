@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 19:20:05 by macarval          #+#    #+#             */
-/*   Updated: 2023/10/16 11:52:32 by macarval         ###   ########.fr       */
+/*   Updated: 2023/10/27 18:16:25 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ void	verify_builtins(t_shell *shell, t_cmd_table *cmd_table)
 {
 	if (shell->command && is_command(shell, cmd_table))
 	{
-		printf("%s: command not found\n", shell->command);
+		ft_putstr_fd(shell->command, STDERR_FILENO);
+		ft_putstr_fd(": command not found\n", STDERR_FILENO);
 		shell->exit_code = 127;
 	}
 }

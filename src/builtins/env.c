@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 16:36:46 by macarval          #+#    #+#             */
-/*   Updated: 2023/10/16 12:17:37 by macarval         ###   ########.fr       */
+/*   Updated: 2023/10/27 16:27:37 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,10 @@ int	c_env(t_shell *shell)
 			return (1);
 		if (shell->content != NULL)
 		{
-			printf("%s: ‘%s’: No such file or directory\n",
-				shell->command, shell->content);
+			ft_putstr_fd(shell->command, STDERR_FILENO);
+			ft_putstr_fd(": ‘", STDERR_FILENO);
+			ft_putstr_fd(shell->content, STDERR_FILENO);
+			ft_putstr_fd("’: command not found\n", STDERR_FILENO);
 			shell->exit_code = 127;
 			return (1);
 		}
@@ -53,7 +55,10 @@ t_lst	*make_list(t_env *envp)
 	while (envp)
 	{
 		var = ft_strdup(envp->variable);
-		value = ft_strdup(envp->value);
+		if (envp->value)
+			value = ft_strdup(envp->value);
+		else
+			value = NULL;
 		if (envp->type)
 			type = envp->type;
 		else

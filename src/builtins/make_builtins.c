@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 14:33:18 by macarval          #+#    #+#             */
-/*   Updated: 2023/10/16 12:31:19 by macarval         ###   ########.fr       */
+/*   Updated: 2023/10/27 14:21:41 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,25 +54,30 @@ int	call_builtins(t_cmd_table *cmd_table, char *line)
 void	make_builtins(t_shell *shell, t_cmd_table *cmd_table)
 {
 	int		i;
-	int		control;
+	int		tam;
+	char	*line;
 
 	i = 0;
-	while (shell->lex[i])
+	if (!strcmp_mod(shell->lex[i][1], BUILTIN))
+		shell->command = ft_strdup(shell->lex[i++][0]);
+	while (shell->lex[i] && !strcmp_mod(shell->lex[i][1], FLAG))
+		join_flag(shell, i++);
+	if (!strcmp_mod(shell->command, "echo"))
 	{
-		control = 0;
-		if (!strcmp_mod(shell->lex[i][1], BUILTIN) && ++control)
-			shell->command = ft_strdup(shell->lex[i++][0]);
-		while (shell->lex[i]
-			&& !strcmp_mod(shell->lex[i][1], FLAG) && ++control)
-			join_flag(shell, i++);
-		while (shell->lex[i] && !strcmp_mod(shell->lex[i][1], CONTENT)
-			&& ++control)
-			join_content(shell, i++);
-		verify_builtins(shell, cmd_table);
-		free_join(shell);
-		if (!control)
-			i++;
+		line = ft_substr(shell->line, 0, ft_strlen(shell->line) - 1);
+		tam = ft_strlen(shell->command) + 1;
+		if (shell->flag)
+			tam += ft_strlen(shell->flag) + 1;
+		shell->content = ft_substr(line, tam, ft_strlen(shell->line));
+		free(line);
 	}
+	else
+	{
+		while (shell->lex[i] && !strcmp_mod(shell->lex[i][1], CONTENT))
+		join_content(shell, i++);
+	}
+	verify_builtins(shell, cmd_table);
+	free_join(shell);
 }
 
 void	join_flag(t_shell *shell, int i)

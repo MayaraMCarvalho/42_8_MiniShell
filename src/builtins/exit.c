@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:13:37 by macarval          #+#    #+#             */
-/*   Updated: 2023/10/26 11:37:48 by macarval         ###   ########.fr       */
+/*   Updated: 2023/10/27 18:02:54 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,34 @@ int	c_exit(t_shell *shell, t_cmd_table *cmd_table)
 		if (!is_flag_null(shell))
 			return (1);
 		control = 1;
+		if (shell->content)
+			get_exit_code(shell);
 		free_list(shell->env);
 		free_shell(*shell);
 		free_table(cmd_table);
 		rl_clear_history();
 	}
 	return (control);
+}
+
+void	get_exit_code(t_shell *shell)
+{
+	char	**split;
+
+	split = ft_split(shell->content, ' ');
+	if (!isdigit_mod(split[0]))
+	{
+		ft_putstr_fd("bash: exit: numeric argument required\n", STDERR_FILENO);
+		shell->exit_code = 2;
+	}
+	else if (split[1])
+	{
+		ft_putstr_fd("bash: exit: too many arguments\n", STDERR_FILENO);
+		shell->exit_code = 1;
+	}
+	else
+		shell->exit_code = ft_atoi(shell->content);
+	free_array(&split);
 }
 
 void	free_table(t_cmd_table *cmd_table)
@@ -67,21 +89,4 @@ void	free_shell(t_shell shell)
 		free(shell.content);
 	if (shell.lex)
 		free_double(&shell.lex);
-}
-
-void	free_env(t_env *list)
-{
-	t_env	*temp;
-	t_env	*next;
-
-	temp = list;
-	while (temp != NULL)
-	{
-		free(temp->variable);
-		if (temp->value)
-			free(temp->value);
-		next = temp->next;
-		free(temp);
-		temp = next;
-	}
 }

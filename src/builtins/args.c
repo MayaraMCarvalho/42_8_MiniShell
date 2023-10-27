@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 17:21:16 by macarval          #+#    #+#             */
-/*   Updated: 2023/10/16 12:38:50 by macarval         ###   ########.fr       */
+/*   Updated: 2023/10/27 15:33:20 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,11 @@ int	is_args(t_shell *shell)
 		var = find_arg(*shell, content + 1);
 		if (content[0] == '$' && var)
 			content = var->msg;
-		printf("bash: %s: `%s': not a valid identifier\n",
-			shell->command, content);
+		ft_putstr_fd("bash: ", STDERR_FILENO);
+		ft_putstr_fd(shell->command, STDERR_FILENO);
+		ft_putstr_fd(": `", STDERR_FILENO);
+		ft_putstr_fd(content, STDERR_FILENO);
+		ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
 		shell->exit_code = 1;
 		return (0);
 	}
@@ -56,7 +59,7 @@ void	apart_args(t_shell *shell, char c, int (*function)(t_shell *))
 	i = -1;
 	if (shell->content)
 	{
-		split = ft_split_mod(shell->content, c);
+		split = ft_split(shell->content, c);
 		while (split[++i])
 		{
 			free(shell->content);
@@ -68,7 +71,6 @@ void	apart_args(t_shell *shell, char c, int (*function)(t_shell *))
 				&& !strcmp_mod(shell->command, "echo"))
 				printf("\b");
 		}
-		shell->exit_code = 0;
 		free_array(&split);
 	}
 }
