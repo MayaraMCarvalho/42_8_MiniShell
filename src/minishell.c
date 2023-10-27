@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 18:02:28 by macarval          #+#    #+#             */
-/*   Updated: 2023/10/26 11:41:51 by macarval         ###   ########.fr       */
+/*   Updated: 2023/10/27 10:13:33 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int	main(int argc, char **argv, char **envp)
 			add_history(shell.line);
 			if (!tokenize_string(shell.line, cmd_table))
 				exec_minishell(cmd_table, token_head);
+			else
+				free(shell.line);
 			free_func_token(&token_head);
 		}
 		else
