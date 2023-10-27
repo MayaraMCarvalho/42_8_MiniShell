@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:52:02 by macarval          #+#    #+#             */
-/*   Updated: 2023/10/26 11:37:40 by macarval         ###   ########.fr       */
+/*   Updated: 2023/10/27 10:19:52 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct s_shell
 	int			exit_code;
 }	t_shell;
 
+char		*get_line_text(void);
 void		exec_minishell(t_cmd_table *cmd_table, t_token *token_head);
 
 // args.c
