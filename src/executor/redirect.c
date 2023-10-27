@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 11:05:16 by macarval          #+#    #+#             */
-/*   Updated: 2023/10/20 16:29:42 by macarval         ###   ########.fr       */
+/*   Updated: 2023/10/27 09:03:15 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "../../headers/delimiter.h"
 #include "../../headers/pipes.h"
 #include "../../headers/execute.h"
+#include "../../headers/minishell.h"
 
 #include <fcntl.h>
 #include <errno.h>
@@ -35,6 +36,8 @@ static void	redirect_error(t_cmd_table *cmd_tab, char *file)
 		ft_putstr_fd(file, STDERR_FILENO);
 		ft_putstr_fd(": Permission denied \n", STDERR_FILENO);
 	}
+	free_table(cmd_tab);
+	rl_clear_history();
 	exit(1);
 }
 
