@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 15:14:03 by macarval          #+#    #+#             */
-/*   Updated: 2023/10/28 10:22:57 by macarval         ###   ########.fr       */
+/*   Updated: 2023/10/28 10:31:31 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,25 @@ int	print_flag(t_shell shell)
 		printf("%s ", split[i++]);
 	free_array(&split);
 	return (control);
+}
+
+void	print_error_flag (t_shell *shell, char letter)
+{
+	char	let[2];
+
+	let[0] = letter;
+	let[1] = '\0';
+	if (!strcmp_mod(shell->command, "env"))
+	{
+		error_built(shell->command, ": invalid option -- '", let, "'\n");
+		shell->exit_code = 125;
+	}
+	else
+	{
+		ft_putstr_fd("bash: ", STDERR_FILENO);
+		error_built(shell->command, ": -", let, ": invalid option\n");
+		shell->exit_code = 2;
+	}
 }
 
 void	error_built(char *var1, char *txt1, char *var2, char *txt2)
