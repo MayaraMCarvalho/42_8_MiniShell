@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 16:36:46 by macarval          #+#    #+#             */
-/*   Updated: 2023/10/27 19:22:21 by macarval         ###   ########.fr       */
+/*   Updated: 2023/10/28 10:20:31 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,8 @@ int	c_env(t_shell *shell)
 			return (1);
 		if (shell->content != NULL)
 		{
-			ft_putstr_fd(shell->command, STDERR_FILENO);
-			ft_putstr_fd(": ‘", STDERR_FILENO);
-			ft_putstr_fd(shell->content, STDERR_FILENO);
-			ft_putstr_fd("’: command not found\n", STDERR_FILENO);
+			error_built(shell->command, ": ‘",
+				shell->content, "’: No such file or directory\n");
 			shell->exit_code = 127;
 			return (1);
 		}

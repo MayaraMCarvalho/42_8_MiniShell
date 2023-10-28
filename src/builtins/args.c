@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 17:21:16 by macarval          #+#    #+#             */
-/*   Updated: 2023/10/27 18:58:20 by macarval         ###   ########.fr       */
+/*   Updated: 2023/10/28 10:22:54 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,8 @@ int	is_args(t_shell *shell)
 		if (content[0] == '$' && var)
 			content = var->msg;
 		ft_putstr_fd("bash: ", STDERR_FILENO);
-		ft_putstr_fd(shell->command, STDERR_FILENO);
-		ft_putstr_fd(": `", STDERR_FILENO);
-		ft_putstr_fd(content, STDERR_FILENO);
-		ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
+		error_built(shell->command, ": `",
+				content, "': not a valid identifier\n");
 		shell->exit_code = 1;
 		return (0);
 	}
@@ -101,19 +99,27 @@ char	verify_flags(char *flag, char *pattern)
 int	is_flag_null(t_shell *shell)
 {
 	char	letter;
+	char	let[2];
 
-	letter = verify_flags(shell->flag, NULL);
+	if ((!strcmp_mod(shell->command, "env")
+		|| !strcmp_mod(shell->command, "pwd"))
+		&& shell->content && shell->content[0] == '-')
+		letter = verify_flags(shell->content, NULL);
+	else
+		letter = verify_flags(shell->flag, NULL);
 	if (letter != '\0')
 	{
-		if (!strcmp_mod(shell->command, "env")
-			|| !strcmp_mod(shell->command, "clear"))
+		let[0] = letter;
+		let[1] = '\0';
+		if (!strcmp_mod(shell->command, "env"))
 		{
-			printf("%s: invalid option -- '%c'\n", shell->command, letter);
-			shell->exit_code = 1;
+			error_built(shell->command, ": invalid option -- '", let, "'\n");
+			shell->exit_code = 125;
 		}
 		else
 		{
-			printf("bash: %s: -%c: invalid option\n", shell->command, letter);
+			ft_putstr_fd("bash: ", STDERR_FILENO);
+			error_built(shell->command, ": -", let, ": invalid option\n");
 			shell->exit_code = 2;
 		}
 		return (0);

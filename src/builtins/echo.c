@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 15:14:03 by macarval          #+#    #+#             */
-/*   Updated: 2023/10/27 16:27:35 by macarval         ###   ########.fr       */
+/*   Updated: 2023/10/28 10:22:57 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,12 @@ int	print_flag(t_shell shell)
 		printf("%s ", split[i++]);
 	free_array(&split);
 	return (control);
+}
+
+void	error_built(char *var1, char *txt1, char *var2, char *txt2)
+{
+	ft_putstr_fd(var1, STDERR_FILENO);
+	ft_putstr_fd(txt1, STDERR_FILENO);
+	ft_putstr_fd(var2, STDERR_FILENO);
+	ft_putstr_fd(txt2, STDERR_FILENO);
 }
