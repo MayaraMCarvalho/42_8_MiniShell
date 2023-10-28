@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 17:21:16 by macarval          #+#    #+#             */
-/*   Updated: 2023/10/28 10:33:36 by macarval         ###   ########.fr       */
+/*   Updated: 2023/10/28 11:04:36 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,12 +100,12 @@ int	is_flag_null(t_shell *shell)
 {
 	char	letter;
 
-	if ((!strcmp_mod(shell->command, "env")
-			|| !strcmp_mod(shell->command, "pwd"))
-			&& shell->content && shell->content[0] == '-')
-		letter = verify_flags(shell->content, NULL);
-	else
+	letter = '\0';
+	if (!strcmp_mod(shell->command, "echo"))
 		letter = verify_flags(shell->flag, NULL);
+	else if (shell->content && shell->content[0] == '-'
+		&& strcmp_mod(shell->command, "exit"))
+		letter = verify_flags(shell->content, NULL);
 	if (letter != '\0')
 	{
 		print_error_flag (shell, letter);

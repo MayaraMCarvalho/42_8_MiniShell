@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 15:14:03 by macarval          #+#    #+#             */
-/*   Updated: 2023/10/28 10:31:31 by macarval         ###   ########.fr       */
+/*   Updated: 2023/10/28 10:35:31 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	print_flag(t_shell shell)
 	return (control);
 }
 
-void	print_error_flag (t_shell *shell, char letter)
+void	print_error_flag(t_shell *shell, char letter)
 {
 	char	let[2];
 

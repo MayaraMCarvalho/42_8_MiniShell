@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 16:36:32 by macarval          #+#    #+#             */
-/*   Updated: 2023/10/27 11:35:44 by macarval         ###   ########.fr       */
+/*   Updated: 2023/10/28 10:51:05 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	c_unset(t_shell *shell)
 {
+	if (!is_flag_null(shell))
+		return (1);
 	if (!strcmp_mod(shell->command, "unset"))
 	{
 		update_(*shell);
@@ -32,7 +34,7 @@ int	exe_unset(t_shell *shell)
 		if (is_args(shell))
 		{
 			node = find_arg(*shell, shell->content);
-			if (is_flag_null(shell) && node != NULL)
+			if (node != NULL)
 			{
 				if (shell->env == node)
 					shell->env = node->next;

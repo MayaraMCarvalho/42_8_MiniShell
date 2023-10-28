@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:52:02 by macarval          #+#    #+#             */
-/*   Updated: 2023/10/28 10:31:06 by macarval         ###   ########.fr       */
+/*   Updated: 2023/10/28 10:35:26 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int			is_command(t_shell *shell, t_cmd_table *cmd_table);
 // echo.c
 int			c_echo(t_shell *shell);
 int			print_flag(t_shell shell);
-void		print_error_flag (t_shell *shell, char letter);
+void		print_error_flag(t_shell *shell, char letter);
 void		error_built(char *v1, char *t1, char *v2, char *t2);
 
 // env.c

@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 20:02:42 by macarval          #+#    #+#             */
-/*   Updated: 2023/10/27 19:17:25 by macarval         ###   ########.fr       */
+/*   Updated: 2023/10/28 11:28:03 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,22 @@ int	c_cd(t_shell *shell)
 	if (!strcmp_mod(shell->command, "cd"))
 	{
 		update_(*shell);
-		if (strcmp_mod(shell->flag, "-") && !is_flag_null(shell))
-			return (1);
-		if (!shell->content && !shell->flag)
+		if (!shell->content)
 			shell->content = ft_strdup(getenv("HOME"));
-		else if (!strcmp_mod(shell->flag, "-"))
+		else if (!strcmp_mod(shell->content, "-"))
 			get_oldpwd(shell);
 		split = ft_split(shell->content, ' ');
-		if (split[1])
+		if ((!strcmp_mod(split[0], "-") || split[0][0] != '-') && split[1])
 		{
 			ft_putstr_fd("bash: cd: too many arguments\n", STDERR_FILENO);
 			shell->exit_code = 1;
+			free_array(&split);
+			return (1);
 		}
-		else
-			exe_cd(shell);
 		free_array(&split);
+		if (strcmp_mod(shell->content, "-") && !is_flag_null(shell))
+			return (1);
+		exe_cd(shell);
 		return (1);
 	}
 	return (0);
@@ -46,6 +47,7 @@ void	get_oldpwd(t_shell *shell)
 	var = find_arg(*shell, "OLDPWD");
 	if (var)
 	{
+		free(shell->content);
 		shell->content = ft_strdup(var->msg);
 		printf("%s\n", shell->content);
 	}

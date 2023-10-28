@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:13:37 by macarval          #+#    #+#             */
-/*   Updated: 2023/10/27 18:02:54 by macarval         ###   ########.fr       */
+/*   Updated: 2023/10/28 11:01:55 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ int	c_exit(t_shell *shell, t_cmd_table *cmd_table)
 	control = 0;
 	if (!strcmp_mod(shell->command, "exit"))
 	{
-		if (!is_flag_null(shell))
-			return (1);
 		control = 1;
 		if (shell->content)
 			get_exit_code(shell);
