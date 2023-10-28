@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 16:36:10 by macarval          #+#    #+#             */
-/*   Updated: 2023/10/28 17:29:59 by macarval         ###   ########.fr       */
+/*   Updated: 2023/10/28 17:45:17 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ int	add_export(t_shell *shell, char *var, char	*msg)
 	t_lst	*node;
 	t_lst	*new_node;
 
-
 	if (is_args(shell))
 	{
 		node = find_arg(*shell, var);
@@ -69,7 +68,6 @@ int	add_export(t_shell *shell, char *var, char	*msg)
 	}
 	return (0);
 }
-
 
 void	print_export(t_lst *env)
 {
