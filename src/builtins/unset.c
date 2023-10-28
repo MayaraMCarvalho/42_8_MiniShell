@@ -6,20 +6,30 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 16:36:32 by macarval          #+#    #+#             */
-/*   Updated: 2023/10/28 10:51:05 by macarval         ###   ########.fr       */
+/*   Updated: 2023/10/28 17:39:37 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
-int	c_unset(t_shell *shell)
+int	c_unset(t_shell *shell, t_cmd_table *cmd_table)
 {
+	int		i;
+	char	**arg;
+
 	if (!is_flag_null(shell))
 		return (1);
 	if (!strcmp_mod(shell->command, "unset"))
 	{
 		update_(*shell);
-		apart_args(shell, ' ', exe_unset);
+		arg = cmd_table->cmd_arr[shell->cmd_index].single_cmd;
+		i = 0;
+		while (arg[++i])
+		{
+			free(shell->content);
+			shell->content = ft_strdup(arg[i]);
+			exe_unset(shell);
+		}
 		return (1);
 	}
 	return (0);

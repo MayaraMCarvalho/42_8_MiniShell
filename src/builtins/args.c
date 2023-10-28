@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 17:21:16 by macarval          #+#    #+#             */
-/*   Updated: 2023/10/28 11:04:36 by macarval         ###   ########.fr       */
+/*   Updated: 2023/10/28 17:30:13 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,31 +46,6 @@ int	is_args(t_shell *shell)
 		return (0);
 	}
 	return (1);
-}
-
-void	apart_args(t_shell *shell, char c, int (*function)(t_shell *))
-{
-	int		i;
-	char	**split;
-	int		control;
-
-	i = -1;
-	if (shell->content)
-	{
-		split = ft_split(shell->content, c);
-		while (split[++i])
-		{
-			free(shell->content);
-			shell->content = ft_strdup(split[i]);
-			control = function(shell);
-			if (control == 1 && split[i + 1])
-				printf(" ");
-			else if (control == 0 && !split[i + 1]
-				&& !strcmp_mod(shell->command, "echo"))
-				printf("\b");
-		}
-		free_array(&split);
-	}
 }
 
 char	verify_flags(char *flag, char *pattern)

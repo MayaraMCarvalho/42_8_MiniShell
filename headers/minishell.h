@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:52:02 by macarval          #+#    #+#             */
-/*   Updated: 2023/10/28 10:35:26 by macarval         ###   ########.fr       */
+/*   Updated: 2023/10/28 17:38:31 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_shell
 	char		*command;
 	char		*flag;
 	char		*content;
+	int			cmd_index;
 	int			exit_code;
 }	t_shell;
 
@@ -64,7 +65,6 @@ int			is_args(t_shell *shell);
 int			is_flag_null(t_shell *shell);
 t_lst		*find_arg(t_shell shell, char *var);
 char		verify_flags(char *flag, char *pattern);
-void		apart_args(t_shell *shell, char c, int (*function)(t_shell *));
 
 // cd.c
 int			c_cd(t_shell *shell);
@@ -100,9 +100,10 @@ int			c_exit(t_shell *shell, t_cmd_table *cmd_table);
 
 // export.c
 void		sort_export(t_lst *env);
-int			c_export(t_shell *shell);
+int			c_export(t_shell *shell, t_cmd_table *cmd_table);
 void		print_export(t_lst *env);
-int			add_export(t_shell *shell);
+int			add_export(t_shell *shell, char *var, char	*msg);
+void		get_args(t_shell *shell, t_cmd_table *cmd_table); // mudar de local
 
 // free.c
 void		free_lex(t_lex *lex);
@@ -128,7 +129,7 @@ t_lex		*insert_front_lex(t_lex *new, char *token, char *type);
 void		join_flag(t_shell *shell, int i);
 void		join_content(t_shell *shell, int i);
 char		*get_line(t_cmd_table *cmd_table, int cmd_index);
-int			call_builtins(t_cmd_table *cmd_table, char *line);
+int			call_builtins(t_cmd_table *cmd_table, char *line, int cmd_index);
 void		make_builtins(t_shell *shell, t_cmd_table *cmd_table);
 
 // node.c
@@ -159,13 +160,13 @@ void		insert_last_env(t_env **lst, t_env *new);
 t_env		*insert_front_env(t_env *new, char *var, char *msg, int type);
 
 // unset.c
-int			c_unset(t_shell *shell);
-int			isdigit_mod(char	*c);
+int			c_unset(t_shell *shell, t_cmd_table *cmd_table);
 int			exe_unset(t_shell *shell);
 void		verify_expansion(char **token);
 
 // utils.c
 int			isalnum_mod(char *c);
+int			isdigit_mod(char *c);
 char		*strchr_mod(const char *str, int c);
 char		*strchr_rev(const char *str, int c);
 

@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 14:33:18 by macarval          #+#    #+#             */
-/*   Updated: 2023/10/27 19:18:39 by macarval         ###   ########.fr       */
+/*   Updated: 2023/10/28 16:57:20 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,14 @@ char	*get_line(t_cmd_table *cmd_table, int cmd_index)
 	return (line);
 }
 
-int	call_builtins(t_cmd_table *cmd_table, char *line)
+int	call_builtins(t_cmd_table *cmd_table, char *line, int cmd_index)
 {
 	t_shell	shell;
 
 	inicialize(&shell);
 	shell.env = make_list(cmd_table->env);
 	shell.line = line;
+	shell.cmd_index = cmd_index;
 	shell.exit_code = cmd_table->latest_exit_code;
 	if (make_shell(&shell))
 		make_builtins(&shell, cmd_table);
