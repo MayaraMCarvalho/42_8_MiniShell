@@ -1,0 +1,92 @@
+echo hello world
+echo "hello world"
+echo 'hello world'
+echo hello'world'
+echo hello""world
+echo ''
+echo "$PWD"
+echo '$PWD'
+echo "aspas ->'"
+echo "aspas -> ' "
+echo 'aspas ->"'
+echo 'aspas -> " '
+echo "> >> < * ? [ ] | ; [ ] || && ( ) & # $ \ <<"
+echo '> >> < * ? [ ] | ; [ ] || && ( ) & # $ \ <<'
+echo "exit_code ->$? user ->$USER home -> $HOME"
+echo 'exit_code ->$? user ->$USER home -> $HOME'
+echo "$"
+echo '$'
+echo $
+echo $?
+echo $?HELLO
+pwd
+pwd oi
+export hello
+export HELLO=123
+export A-
+export HELLO=123 A
+export HELLO="123 A-"
+export hello world
+export HELLO-=123
+export =
+export 123
+unset
+unset HELLO
+unset HELLO1 HELLO2
+unset HOME
+unset PATH
+unset SHELL
+cd $PWD
+cd $PWD hi
+cd 123123
+exit 123
+exit 298
+exit +100
+exit "+100"
+exit +"100"
+exit -100
+exit "-100"
+exit -"100"
+exit hello
+exit 42 world
+echo "cat lol.c | cat > lol.c"
+export $teste=42
+export teste=42
+export $teste=42
+cd ~/42-8-MiniShell
+echo $?
+echo "'$USER'"
+echo '"$USER"'
+export "teste"="42"
+export "teste2"="42"
+export "teste 42"="42"
+env dfgdf sdf
+env sd -as
+env -sdfsd
+env -sdfsd dfg
+pwd dfgdfg
+pwd sdf sdf
+pwd sdfg -sdgsdg
+pwd -sdgsdg
+export -sd
+export -sd dfg
+export asda -sd
+unset -a
+unset -a dfg
+unset dfgf -a
+cd -as
+cd - a
+cd a -
+cd a -sdfg
+cd -fgdf sdfsd
+echo sdf -asdf
+echo -dfgdfg
+export "var="teste5" var5=24 var2="teste 1""
+export "teste 42"="42"
+export var="teste5" "var5"=24 var2="teste 1" var1="" var3="teste texto" "var 8"=teste
+export caminho="/caminho/do/diretorio"
+export minha_variavel="Valor da variável"
+unset "teste 1"
+echo -nnnn-n -n teste
+echo - teste
+echo -nnann -n teste

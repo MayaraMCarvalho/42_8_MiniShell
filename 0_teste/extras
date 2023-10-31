@@ -1,0 +1,15 @@
+
+$PWD
+$EMPTY
+$EMPTY echo hi
+./0_tester/minishell_tester/test_files/invalid_permission
+./0_tester/minishell_testermissing.out
+0_tester/minishell_testermissing.out
+"aaa"
+0_tester/minishell_testertest_files
+./0_tester/minishell_tester/test_files
+0_tester/minishell_tester/test_files
+minishell.h
+$
+$?
+0_tester/minishell_tester/README.md
