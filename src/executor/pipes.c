@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 11:05:10 by macarval          #+#    #+#             */
-/*   Updated: 2023/10/20 16:26:10 by macarval         ###   ########.fr       */
+/*   Updated: 2023/10/29 14:59:58 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	redirect_first_cmd(t_cmd_table *cmd_table, t_command *cmd)
 	i = 0;
 	redirect_input(cmd_table, red, red_count);
 	if (!redirect_output(cmd_table, red, red_count))
-		dup2(cmd_table->pipes[0][WRITE], STDOUT_FILENO);
+		dup2(cmd_table->pipes[0][WRITE], STDOUT_FILENO);//
 	close_pipes(cmd_table, 0, BOTH);
 	while (i < cmd_table->cmd_count - 1)
 		close_pipes(cmd_table, i++, BOTH);

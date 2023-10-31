@@ -6,13 +6,12 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 11:05:42 by macarval          #+#    #+#             */
-/*   Updated: 2023/10/20 11:05:43 by macarval         ###   ########.fr       */
+/*   Updated: 2023/10/29 10:32:29 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 #include "../../headers/signals.h"
-
 #include <unistd.h>
 #include <stdlib.h>
 
@@ -32,8 +31,15 @@ void	sign_interrupt_delimiter(int signum)
 	exit(128 + signum);
 }
 
-void	ctrl_d(int latest_exit_code)
+void	ctrl_d(t_cmd_table *cmd_table)
 {
-	write(STDERR_FILENO, "exit\n", 5);
-	exit(latest_exit_code);
+	int	i;
+
+	i = cmd_table->latest_exit_code;
+	free(cmd_table->home);
+	free_env(cmd_table->env);
+	free_func_token(cmd_table->token_head);
+	free(cmd_table);
+	rl_clear_history();
+	exit(i);
 }

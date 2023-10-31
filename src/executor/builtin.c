@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 11:04:56 by macarval          #+#    #+#             */
-/*   Updated: 2023/10/28 16:56:33 by macarval         ###   ########.fr       */
+/*   Updated: 2023/10/29 15:18:01 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,16 @@ bool	is_builtin(char *arg)
 	return (false);
 }
 
-void	execute_builtin(t_cmd_table *cmd_table, int cmd_index)
+void	execute_builtin(t_cmd_table *cmd_table, int cmd_index, int io[2])
 {
 	char	*line;
 
 	line = get_line(cmd_table, cmd_index);
 	cmd_table->latest_exit_code = call_builtins(cmd_table, line, cmd_index);
+	if (cmd_table->cmd_count == 1)
+		reset_stdin_stdout(io);
+	if (cmd_table->cmd_count > 1)
+		exit(0);
 }
 
 void	builtin_single_cmd(t_cmd_table *cmd_table)
@@ -85,7 +89,7 @@ void	builtin_single_cmd(t_cmd_table *cmd_table)
 	}
 	redirect_input(cmd_table, redirect_arr, redirect_count);
 	redirect_output(cmd_table, redirect_arr, redirect_count);
-	execute_builtin(cmd_table, 0);
+	execute_builtin(cmd_table, 0, io);
 }
 
 void	exec_delimiter_single_builtin(char *eof)

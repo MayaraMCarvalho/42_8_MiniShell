@@ -1,4 +1,4 @@
-SOURCES		:=	env_init.c env_utils.c execve_error.c export_error.c \
+SOURCES		:=	env_init.c env_utils.c execve_error.c \
 				grammar_error.c builtin.c delimiter.c exec_utils.c \
 				execute.c execve.c pipes.c pipes2.c redirect.c expand.c \
 				del_quotes.c cmd_table.c grammar.c io_redirections.c \
@@ -14,12 +14,12 @@ BUILD		:=	build
 VPATH		:=	src/ src/input src/tokenize src/parse src/builtins src/executor src/errors src/env src/expander src/signals
 OBJECTS		:=	$(addprefix $(BUILD)/, $(SOURCES:.c=.o))
 NAME		:=	minishell
-FLAGS		:=	-I$(shell brew --prefix readline)/include -Wall -Werror -Wextra
+FLAGS		:=	-Wall -Werror -Wextra
 CC			:=	cc
 HEADER		:=	headers/minishell.h libft/libft.h headers/token.h headers/parser.h headers/builtin.h headers/execute.h headers/execve.h headers/pipes.h headers/redirect.h headers/env_init.h headers/env_utils.h headers/expansions.h headers/signals.h headers/delimiter.h headers/error.h
 LIBFT		:=	libft/libft.a
 LIB_DIR		:=	libft
-LIBS		:=	-lreadline -L$(shell brew --prefix readline)/lib
+LIBS		:=	-lreadline
 
 all: $(NAME)
 
